@@ -1,17 +1,66 @@
 function tip () {
+    
+    const closeTip = () => {
+        page.removeChild(mainTip);
+    }
+
+    const inputChecked = () => {    
+        window.localStorage['Notification'] = inputToggle.checked;
+    }
+
+    let num = 0;
+
+    const toggleMassage = (EO) => {
+        EO=EO||window.event;
+        page.focus();
+        let massage = [ `<h3>Header one</h3><p>Massage one</p>`, 
+                        `<h3>Header two</h3><p>Massage two</p>`, 
+                        `<h3>Header tree</h3><p>Massage tree</p>`, 
+                        `<h3>Header four</h3><p>Massage four</p>`, 
+                        `<h3>Header five</h3><p>Massage five</p>`, 
+                        `<h3>Header six</h3><p>Massage six</p>`];
+
+        let note = [
+            noteOne,
+            noteTwo,
+            noteThree,
+            noteFour,
+            noteFive,
+            noteSix
+        ];   
+        
+        if ((EO.target.name === 'ahead' || EO.keyCode  === 39) && num != 5) {
+            num += 1;
+            displayMassage.innerHTML = massage[num];
+            for (i = 0; i < note.length; i++) {
+                note[i].className = 'main_toggle_note';
+            }
+            note[num].className = 'main_toggle_note note_selected';        
+        }
+        if ((EO.target.name === 'back' || EO.keyCode  === 37) && num != 0) {
+            num -= 1;
+            displayMassage.innerHTML = massage[num];
+            for (i = 0; i < note.length; i++) {
+                note[i].className = 'main_toggle_note';
+            }
+            note[num].className = 'main_toggle_note note_selected';
+        }
+        EO.preventDefault();
+    }
 
     let page = document.body;
+    page.addEventListener('keydown',toggleMassage,false);   
 
     let mainTip = document.createElement('div');
     
     mainTip.className = 'main';
 
-    
+    // создание элемента закрытия окна
     let close = document.createElement('div');
     close.className = 'main_close';
     close.onclick = closeTip;
 
-    
+    // переключатель состояний
     let toggle = document.createElement('div');
     toggle.className = 'main_toggle';
 
@@ -42,8 +91,16 @@ function tip () {
     backwardArrow.name = 'back';
     backwardArrow.className = 'main_toggle_backwardArrow'
 
+    backwardArrow.addEventListener('click',toggleMassage,false);
+    backwardArrow.addEventListener('keydown',toggleMassage,false);
+  
+
     aheadArrow.name = 'ahead';
     aheadArrow.className = 'main_toggle_aheadArrow'
+
+    aheadArrow.addEventListener('click',toggleMassage,false);
+    aheadArrow.addEventListener('keydown',toggleMassage,false);
+    
 
     let noteOne = document.createElement('div'),
         noteTwo = document.createElement('div'),
