@@ -1,3 +1,10 @@
+if (window.localStorage['Notification'] !== 'true') {    
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => tip ()        
+        , 5000);
+    }, true);
+}
+
 function tip () {
     
     const closeTip = () => {
@@ -12,7 +19,7 @@ function tip () {
 
     const toggleMassage = (EO) => {
         EO=EO||window.event;
-        page.focus();
+        
         let massage = [ `<h3>Header one</h3><p>Massage one</p>`, 
                         `<h3>Header two</h3><p>Massage two</p>`, 
                         `<h3>Header tree</h3><p>Massage tree</p>`, 
